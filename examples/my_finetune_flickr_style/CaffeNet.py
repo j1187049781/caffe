@@ -12,9 +12,6 @@ learned_param = [weight_param, bias_param]
 
 frozen_param = [dict(lr_mult=0)] * 2
 
-NUM_STYLE_LABELS = 5
-
-
 def conv_relu(bottom, ks, nout, stride=1, pad=0, group=1,
               param=learned_param,
               weight_filler=dict(type='gaussian', std=0.01),
@@ -100,5 +97,6 @@ def style_net(train=True, learn_all=False, subset=None):
 
 
 if __name__ == '__main__':
+
     style_net(learn_all=True)
     style_net(train=False,learn_all=True)
