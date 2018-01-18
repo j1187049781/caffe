@@ -21,7 +21,7 @@ if __name__=='__main__':
     dummy_data = L.DummyData(shape=dict(dim=[1, 3, 227, 227]))
     if not os.path.exists(deploy_style_recognition_net_filename):
         caffenet(data=dummy_data, train=False,num_classes=NUM_STYLE_LABELS,
-                    classifier_name='fc8_flickr')
+                    classifier_name='fc8_flickr',deploy=True)
     net = caffe.Net(deploy_style_recognition_net_filename,  # defines the structure of the model
                     model_weights,  # contains the trained weights
                     caffe.TEST)  # use test mode (e.g., don't perform dropout)
@@ -49,7 +49,7 @@ if __name__=='__main__':
 
     ### perform classification
     output = net.forward()
-    output_prob = output['prob'][0]  # the output probability vector for the first image in the batch
+    output_prob = output['probs'][0]  # the output probability vector for the first image in the batch
     print 'predicted class is:', output_prob.argmax()
 
     style_label_file = caffe_root + 'examples/finetune_flickr_style/style_names.txt'

@@ -37,7 +37,7 @@ def max_pool(bottom, ks, stride=1):
 
 
 def caffenet(data, label=None, train=True, num_classes=1000,
-             classifier_name='fc8', learn_all=False):
+             classifier_name='fc8', learn_all=False,deploy=False):
     """Returns a NetSpec specifying CaffeNet, following the original proto text
        specification (./models/bvlc_reference_caffenet/train_val.prototxt)."""
     n = caffe.NetSpec()
@@ -77,6 +77,8 @@ def caffenet(data, label=None, train=True, num_classes=1000,
         protxt_file = train_prototxt
     else:
         protxt_file = val_prototxt
+    if deploy:
+        protxt_file = deploy_style_recognition_net_filename
     with open(protxt_file, 'w') as f:
         f.write(str(n.to_proto()))
 
